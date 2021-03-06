@@ -18,11 +18,18 @@ class Produto(models.Model):
 		return self.nome
 
 #Modelo de validação da classe pedido
+
+RENTABILIDADE = (
+	('Ótima', 'Ótima'),
+	('Boa', 'Boa'),
+	('Ruim', 'Ruim'),)
+
 class Pedido(models.Model):
 	cliente 		= models.ForeignKey(Cliente, on_delete=models.CASCADE, null=True)
 	produto 		= models.ForeignKey(Produto, on_delete=models.CASCADE, null=True)
 	quantidade		= models.PositiveIntegerField(null=True, validators=[MinValueValidator(1)])
-	preço_final		= models.DecimalField(null=True, decimal_places=2, max_digits=100)
+	preço_item		= models.DecimalField(null=True, decimal_places=2, max_digits=100, validators=[MinValueValidator(0.01)])
+	rentabilidade	= models.CharField(max_length=100, null=True, choices=RENTABILIDADE, blank=True)
 
 	def __str__(self):
 		return f'{self.cliente.nome} - {self.produto.nome}'
