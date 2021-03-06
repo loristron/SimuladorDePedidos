@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block content %}
+	{% include 'cards-contadores.html' %}
+	<hr>
+	<div class="row">
+		<div class="col-6">
+			<div class="card">
+				<div class="card-header">
+					<h5 class="card-title" style="text-align: center;"> Pedidos </h5>
+				</div>
+				<div class="card card-body">
+					<table class="table">
+						<tr>
+							<th>#</th>
+							<th>Cliente</th>
+							<th>Preço Total</th>
+							<th>Nº. Itens</th>
+							<th>Atualizar</th>
+							<th>Deletar</th>
+						</tr>
+						<tr>
+						{% for pedido in queryset_pedidos %}
+							<td>{{pedido.pk}}</td>
+							<td>{{pedido.cliente}}</td>
+							<td>R$ {{pedido.total_price}}</td>
+							<td>{{pedido.total_items}}</td>
+							<td><a class="btn btn-outline-primary btn-sm btn btn-block">Atualizar</a></td>
+ 							<td><a class="btn btn-outline-danger btn-sm btn btn-block">Deletar</a></td>
+ 						{% endfor %}
+ 						</tr>
+ 					</table>
+				</div>
+			</div>
+		</div>
+		<div class="col-6" style="padding-right: 2%;">
+			<div class="card">
+				<div class="card-header">
+					<h5 class="card-title" style="text-align: center;"> Itens </h5>
+				</div>
+				<div class="card card-body">
+					<table class="table">
+						<tr>
+							<th>#</th>
+							<th>Produto</th>
+							<th>Qtd.</th>
+							<th>Preço</th>
+							<th>Rentável</th>
+							<th>Atualizar</th>
+							<th>Deletar</th>
+
+						</tr>
+						{% for item in queryset_items %}
+						<tr>
+							<td>{{item.pk}}</td>
+							<td>{{item.produto}}</td>
+							<td>{{item.quantidade}}</td>
+							<td>R${{item.preço_item}}</td>
+							<td>{{item.rentabilidade}}</td>
+							<td><a class="btn btn-outline-primary btn-sm btn btn-block">Atualizar</a></td>
+ 							<td><a class="btn btn-outline-danger btn-sm btn btn-block">Deletar</a></td>
+ 						</tr>
+ 						{% endfor %}
+ 					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock content %}
