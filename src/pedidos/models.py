@@ -1,6 +1,8 @@
 from django.db import models
 from django.core.validators import MinValueValidator
 
+import decimal
+
 # Modelo dos Clientes no banco de dados 
 class Cliente(models.Model):
 	nome 	= models.CharField(max_length=200, null=True)
@@ -19,19 +21,22 @@ class Produto(models.Model):
 
 #Modelo de validação da classe pedido
 
-RENTABILIDADE = (
-	('Ótima', 'Ótima'),
-	('Boa', 'Boa'),
-	('Ruim', 'Ruim'),)
 
 class Item(models.Model):
 	produto 		= models.ForeignKey(Produto, on_delete=models.CASCADE, null=True)
 	quantidade		= models.PositiveIntegerField(null=True, validators=[MinValueValidator(1)])
 	preço_item		= models.DecimalField(null=True, decimal_places=2, max_digits=100, validators=[MinValueValidator(0.01)], blank=True)
-	rentabilidade 	= models.CharField(null=True, blank=True, max_length=200, choices=RENTABILIDADE)
+	rentabilidade 	= models.CharField(null=True, blank=True, max_length=200)
 
 	def __str__(self):
-		return f'{self.produto.nome} - R${self.preço_item}'
+		return f'{self.produto.nome} - R${self.preço_item} - {self.rentabilidade}'
 
 
+class Pedido(models.Model):
+	cliente 		= models.ForeignKey(Cliente, on_delete=models.CASCADE)
+	items 			= models.ManyToManyField(Item)
+	total_price		= models.DecimalField(decimal_places=2, null=True, max_digits=1000, blank=True)
+	total_items		= models.PositiveIntegerField(null=True, blank=True)
 
+	def __str__(self):
+		return f'{self.cliente.nome} - R${self.total_price}'
