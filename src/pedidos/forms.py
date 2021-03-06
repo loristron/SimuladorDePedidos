@@ -1,7 +1,7 @@
 from django import forms
-from .models import Item 
+from .models import Item, Pedido
 
-class PostModelForm(forms.Form):
+class ItemModelForm(forms.Form):
 	class Meta:
 		model 	= Item
 		fields 	= [
@@ -9,4 +9,13 @@ class PostModelForm(forms.Form):
 			'quantidade',
 			'preço_item',
 			'rentabilidade',
+		]
+
+class PedidoModelForm(forms.Form):
+	class Meta:
+		model 	= Pedido
+		fields	= [
+			'cliente',
+			'items',
+			'total_price',
 		]
