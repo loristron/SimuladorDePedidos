@@ -27,7 +27,7 @@ RENTABILIDADE = (
 class Item(models.Model):
 	produto 		= models.ForeignKey(Produto, on_delete=models.CASCADE, null=True)
 	quantidade		= models.PositiveIntegerField(null=True, validators=[MinValueValidator(1)])
-	preço_item		= models.DecimalField(null=True, decimal_places=2, max_digits=100, validators=[MinValueValidator(0.01)])
+	preço_item		= models.DecimalField(null=True, decimal_places=2, max_digits=100, validators=[MinValueValidator(0.01)], blank=True)
 
 	def __str__(self):
 		return f'{self.produto.nome} - {self.preço_item}'
