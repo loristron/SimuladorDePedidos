@@ -1,4 +1,4 @@
-from django.db.models.signals import pre_save, post_save
+from django.db.models.signals import pre_save
 from django.dispatch import receiver
 
 from random import randint
@@ -6,6 +6,9 @@ import decimal
 
 from .models import Produto, Item, Cliente
 
+#Recebe sinal e antes de salvar objetos da classe Item, calcula um preço sugerido para o item e 
+#de acordo com esse preço, ou com qualquer preço que seja altarado a partir daí, classifica a rentabilidade
+#do item de acordo com as especificações do exercício. 
 @receiver(pre_save, sender=Item)
 def pre_save_preço_sugerido(sender, instance, **kwargs):
 	
