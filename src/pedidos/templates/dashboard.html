@@ -2,14 +2,22 @@
 {% block content %}
 	{% include 'cards-contadores.html' %}
 	<hr>
+
+	{% include 'update-pedidos-modal.html' %}
+	{% include 'delete-pedidos-modal.html' %}
+	
+	{% include 'update-itens-modal.html' %}
+	{% include 'delete-itens-modal.html' %}
+
+	
 	<div class="row">
 		<div class="col-6">
 			<div class="card">
-				<div class="card-header">
-					<h5 class="card-title" style="text-align: center;"> Pedidos </h5>
+				<div class="header">
+					<h5 class="card card-header" style="text-align: center;"> Pedidos </h5>
 				</div>
 				<div class="card card-body">
-					<table class="table">
+					<table class="table table-responsive-md">
 						<tr>
 							<th>#</th>
 							<th>Cliente</th>
@@ -24,21 +32,21 @@
 							<td>{{pedido.cliente}}</td>
 							<td>R$ {{pedido.total_price}}</td>
 							<td>{{pedido.total_items}}</td>
-							<td><a class="btn btn-outline-primary btn-sm btn btn-block">Atualizar</a></td>
- 							<td><a class="btn btn-outline-danger btn-sm btn btn-block">Deletar</a></td>
+							<td><a class="btn btn-outline-primary btn-sm btn btn-block" data-bs-toggle="modal" data-bs-target="#pedidos-modal">Atualizar</a></td>
+ 							<td><a class="btn btn-outline-danger btn-sm btn btn-block" data-bs-toggle="modal" data-bs-target="#delete-pedido">Deletar</a></td>
  						{% endfor %}
  						</tr>
  					</table>
 				</div>
 			</div>
 		</div>
-		<div class="col-6" style="padding-right: 2%;">
+		<div class="col-6">
 			<div class="card">
-				<div class="card-header">
-					<h5 class="card-title" style="text-align: center;"> Itens </h5>
+				<div class="header">
+					<h5 class="card card-header" style="text-align: center;"> Itens </h5>
 				</div>
 				<div class="card card-body">
-					<table class="table">
+					<table class="table table-responsive-md">
 						<tr>
 							<th>#</th>
 							<th>Produto</th>
@@ -56,8 +64,8 @@
 							<td>{{item.quantidade}}</td>
 							<td>R${{item.preço_item}}</td>
 							<td>{{item.rentabilidade}}</td>
-							<td><a class="btn btn-outline-primary btn-sm btn btn-block">Atualizar</a></td>
- 							<td><a class="btn btn-outline-danger btn-sm btn btn-block">Deletar</a></td>
+							<td><a class="btn btn-outline-primary btn-sm btn btn-block" data-bs-toggle="modal" data-bs-target="#itens-modal">Atualizar</a></td>
+ 							<td><a class="btn btn-outline-danger btn-sm btn btn-block" data-bs-toggle="modal" data-bs-target="#delete-item">Apagar</a></td>
  						</tr>
  						{% endfor %}
  					</table>
