@@ -1,7 +1,7 @@
 from django import forms
 from .models import Item, Pedido
 
-class ItemModelForm(forms.Form):
+class ItemModelForm(forms.ModelForm):
 	class Meta:
 		model 	= Item
 		fields 	= [
@@ -11,7 +11,7 @@ class ItemModelForm(forms.Form):
 			'rentabilidade',
 		]
 
-class PedidoModelForm(forms.Form):
+class PedidoModelForm(forms.ModelForm):
 	class Meta:
 		model 	= Pedido
 		fields	= [
@@ -19,3 +19,14 @@ class PedidoModelForm(forms.Form):
 			'items',
 			'total_price',
 		]
+
+		labels = {
+		'items': 'Itens do pedido',
+		'total_price': 'Preço Total - Calculado Automaticamente',
+
+		}
+
+		widgets = {
+		'total_price': forms.TextInput(attrs={'readonly': 'readonly'})
+		}
+

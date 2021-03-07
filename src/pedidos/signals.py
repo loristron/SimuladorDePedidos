@@ -1,5 +1,7 @@
 from django.db.models.signals import pre_save, m2m_changed
 from django.dispatch import receiver
+from django import forms
+
 
 from random import randint
 import decimal
@@ -30,15 +32,23 @@ def pre_save_preço_sugerido(sender, instance, **kwargs):
 def pre_save_preço_total_pedido(sender, instance, action, **kwargs):
 	total_price = 0
 	total_items = 0
+	rent_ruim  	= 0
 
 	if action =='post_add' or action == 'post_remove':
 		
 		for item in instance.items.all():
+			if item.rentabilidade == 'Ruim':
+				rent_ruim += 1 
+				instance.items.remove(item)
 			total_items 	+= 1 
 			total_price 	+= item.preço_item 
+
+		if rent_ruim == 0:
+			instance.pedido_validado = True
+		if rent_ruim != 0:
+			instance.pedido_validado = False
 		
 		instance.total_price = total_price
 		instance.total_items = total_items
-		instance.save()
 
-	
+		instance.save()
