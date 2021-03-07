@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
-	{% include 'cards-contadores.html' %}
-	<hr>
-
-	{% include 'update-pedidos-modal.html' %}
-	{% include 'delete-pedidos-modal.html' %}
-	
-	{% include 'update-itens-modal.html' %}
-	{% include 'delete-itens-modal.html' %}
-
+	<div class='card'>
+		<div class="header">
+			<h5 class="card card-header" style="text-align: center;"> Totais </h5>
+		</div>
+		<div class="card card-body">
+			{% include 'cards-contadores.html' %}
+		</div>
+	</div>
+	<br>
 	
 	<div class="row">
 		<div class="col-6">
@@ -32,8 +32,11 @@
 							<td>{{pedido.cliente}}</td>
 							<td>R$ {{pedido.total_price}}</td>
 							<td>{{pedido.total_items}}</td>
-							<td><a class="btn btn-outline-primary btn-sm btn btn-block" data-bs-toggle="modal" data-bs-target="#pedidos-modal">Atualizar</a></td>
- 							<td><a class="btn btn-outline-danger btn-sm btn btn-block" data-bs-toggle="modal" data-bs-target="#delete-pedido">Deletar</a></td>
+							<td><a class="btn btn-outline-primary btn-sm btn btn-block" href="{% url 'pedidos:update-pedido' pk=pedido.pk %}">Atualizar</a></td>
+ 							<td>
+ 								<a class="btn btn-outline-danger btn-sm btn btn-block">Deletar</button></a>
+ 							</td>
+
  						{% endfor %}
  						</tr>
  					</table>
